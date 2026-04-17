@@ -1,10 +1,5 @@
 const pool = require("./pool");
 
-console.log("DATABASE_URL:", process.env.DATABASE_URL);
-
-const dbName = await pool.query("SELECT current_database()");
-console.log("Connected to DB:", dbName.rows[0]);
-
 const SQL = `
     CREATE TABLE IF NOT EXISTS items (
         id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -31,6 +26,11 @@ const SQL = `
 `;
 
 module.exports = async function db_setup() {
+    console.log("DATABASE_URL:", process.env.DATABASE_URL);
+
+    const dbName = await pool.query("SELECT current_database()");
+    console.log("Connected to DB:", dbName.rows[0]);
+
     console.log("Connecting to  db...");
     await pool.query(SQL);
     console.log("Connection success!");
