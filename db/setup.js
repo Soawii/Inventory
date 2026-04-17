@@ -1,37 +1,34 @@
 const pool = require("./pool");
 
-const SQL = `
-    CREATE TABLE IF NOT EXISTS items (
-        id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-        title VARCHAR(255) NOT NULL,
-        description VARCHAR(255),
-        price FLOAT NOT NULL,
-        amount INTEGER NOT NULL
-    );
-
-    CREATE TABLE IF NOT EXISTS categories (
-        id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-        title VARCHAR(255)
-    );
-
-    CREATE TABLE IF NOT EXISTS items_categories (
-        item_id INTEGER,
-        category_id INTEGER,
-        CONSTRAINT fk_item
-            FOREIGN KEY (item_id) REFERENCES items(id),
-        CONSTRAINT fk_category
-            FOREIGN KEY (category_id) REFERENCES categories(id),
-        PRIMARY KEY (item_id, category_id)
-    );
-`;
-
 module.exports = async function db_setup() {
-    console.log("DATABASE_URL:", process.env.DATABASE_URL);
+    console.log("Creating tables...");
 
-    const dbName = await pool.query("SELECT current_database()");
-    console.log("Connected to DB:", dbName.rows[0]);
+    await pool.query(`
+        CREATE TABLE IF NOT EXISTS items (
+            id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+            title VARCHAR(255) NOT NULL,
+            description VARCHAR(255),
+            price NUMERIC(10,2) NOT NULL,
+            amount INTEGER NOT NULL
+        );
+    `);
 
-    console.log("Connecting to  db...");
-    await pool.query(SQL);
-    console.log("Connection success!");
+    await pool.query(`
+        CREATE TABLE IF NOT EXISTS categories (
+            id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+            title VARCHAR(255)
+        );
+    `);
+
+    await pool.query(`
+        CREATE TABLE IF NOT EXISTS items_categories (
+            item_id INTEGER,
+            category_id INTEGER,
+            CONSTRAINT fk_item FOREIGN KEY (item_id) REFERENCES items(id),
+            CONSTRAINT fk_category FOREIGN KEY (category_id) REFERENCES categories(id),
+            PRIMARY KEY (item_id, category_id)
+        );
+    `);
+
+    console.log("Tables created!");
 }
