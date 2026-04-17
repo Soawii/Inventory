@@ -4,23 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Items</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
     <%- include("partials/header") %>
 
-    items, query_categories, categories
-
-    <main>
-        <div class="inventory-title">
-            Inventory
-        </div>
-        <div class="controls">
-            <div class="control-filter">
-                <button type="button" id="control-filter-button">Filter</button>
-                <ul class="control-filter-popup">
-                    
-                </ul>
+    <main class="items-main">
+        <div class="items-wrapper">
+            <div class="inventory-title">
+                Items
             </div>
+            
+            <% if (locals.selected_category_id !== undefined) { %>
+                <div class="selected-category">
+                    <%= categories.find((c) => c.id === selected_category_id).title %>
+                </div>
+            <% } %>
+
+            <div class="controls">
+                <div class="control-add">
+                    <a class="control-add-button" href="/items/create">
+                        New item
+                    </a>
+                </div>
+            </div>
+
+            <ul class="items">
+                <% for (const item of items) { %>
+                    <li class="item">
+                        <div class="item-top-row">
+                            <div class="item-title"><%= item.title %></div>
+                            <div class="item-price">$<%= item.price %></div>
+                        </div>
+                        <div class="item-description"><%= item.description %></div>
+                        <% if (item.category_ids.length > 0) { %>
+                            <div class="item-categories">
+                                <% for (const cid of item.category_ids) { %>
+                                    <div class="item-category">
+                                        <%= categories.find((c) => c.id === cid).title %>
+                                    </div>
+                                <% } %>
+                            </div>
+                        <% } %>
+                        <div class="item-amount"><%= item.amount %> left</div>
+                        <div class="item-buttons-wrapper">
+                            <a href="/items/<%=item.id%>/update" class="item-update-button">Update</a>
+                            <form class="item-delete-form" action="/items/<%=item.id%>?_method=DELETE" method="POST">
+                                <button type="submit" class="item-delete-button">Delete</button>
+                            </form>
+                        </div>
+                    </li>
+                <% } %>
+            </ul>
         </div>
     </main>
 

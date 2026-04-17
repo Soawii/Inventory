@@ -36,6 +36,9 @@ header {
 
     border: 1px solid var(--clr-border);
     background-color: var(--clr-header);
+
+    display: flex;
+    justify-content: center;
 }
 nav {
     width: 100%;
@@ -73,6 +76,271 @@ main {
     flex: 1;
     display: flex;
 }
+.items-main {
+    display: flex;
+    justify-content: center;
+}
+.items-wrapper {
+    width: 100%;
+    max-width: 1000px;
+    padding: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+.inventory-title {
+    font-weight: 600;
+    font-size: 2rem;
+}
+.inventory-title::before {
+    content: '# ';
+}
+.controls {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+}
+.control-add {
+    position: relative;
+}
+.control-add-button {
+    width: 100px;
+    border: 1px solid #ccc;
+    color: #191716;
+    background-color: white;
+    padding: 8px;
+    border-radius: 5px;
+    font: inherit;
+    font-size: 1.1rem;
+}
+.control-add-button:hover {
+    background-color: rgb(246,246,248);
+    cursor: pointer;
+}
+
+.selected-category {
+    width: fit-content;
+    border-radius: 1000px;
+    color: black;
+    background-color: rgb(0,255,100);
+    padding: 6px 8px;
+}
+
+/* items */
+.items, .categories {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.item, .category {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.item-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    gap: 8px;
+}
+.item-title, .category-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+.item-description {
+    font-weight: 400;
+    color: #303030;
+}
+.item-amount {
+    font-weight: 400;
+    color: #303030;
+}
+.item-categories {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.item-category {
+    padding: 4px 8px;
+    border-radius: 1000px;
+    background-color: rgb(0,255,100);
+}
+.item-price {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+.item-buttons-wrapper, .categories-buttons-wrapper {
+    margin-top: auto;
+    padding-top: 6px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+a.category-filter {
+    display: block;
+    background-color: transparent;
+    padding: 6px;
+    font: inherit;
+    font-size: 1.1rem;
+    border-radius: 6px;
+    transition: background-color 0.1s ease-out, 
+        color 0.1s ease-out;
+    text-align: center;
+    border: 2px solid rgb(44,44,44);
+    color: rgb(44,44,44);
+}
+a.category-filter:hover {
+    background-color: rgb(44,44,44);
+    color: white;
+    cursor: pointer;
+}
+.item-update-button, .categoty-update-button {
+    background-color: transparent;
+    padding: 6px;
+    font: inherit;
+    font-size: 1.1rem;
+    border-radius: 6px;
+    transition: background-color 0.1s ease-out, 
+        color 0.1s ease-out;
+    text-align: center;
+    border: 2px solid rgb(0,100,255);
+    color: rgb(0,100,255);
+}
+.item-update-button:hover, .categoty-update-button:hover {
+    background-color: rgb(0,100,255);
+    color: white;
+    cursor: pointer;
+}
+.item-delete-form, .category-delete-form {
+    box-sizing: border-box;
+    background-color: transparent;
+    font: inherit;
+    font-size: 1.1rem;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+.item-delete-button, .category-delete-button {
+    display: block;
+    margin: 0;
+    width: 100%;
+    background-color: transparent;
+    padding: 6px;
+    font: inherit;
+    font-size: 1.1rem;
+    border-radius: 6px;
+    text-align: center;
+    border: 2px solid red;
+    color: red;
+    transition: background-color 0.1s ease-out, 
+        color 0.1s ease-out;
+}
+.item-delete-button:hover, .category-delete-button:hover {
+    background-color: red;
+    color: white;
+    cursor: pointer;
+}
+
+/* create item */
+.createitem-main, .createcategory-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem;
+}
+.createitem-form, .createcategory-form {
+    width: 100%;
+    max-width: 600px;
+    border: 1px solid #ccc;
+    background-color: white;
+    border-radius: 8px;
+    position: relative;
+    padding: 2rem 1rem 1rem 1rem;
+
+    display: grid;
+    gap: 8px;
+    height: fit-content;
+    font: inherit;
+    font-size: 1.1rem;
+}
+.createitem-form input[type="text"], .createitem-form input[type="number"], .createcategory-form input[type="text"] {
+    border: 1px solid #ccc;
+    padding: 6px;
+    font: inherit;
+    font-size: 1.1rem;
+    border-radius: 6px;
+}
+.createitem-form-title, .createcategory-form-title {
+    position: absolute;
+    left: 32px;
+    top: 0%;
+    translate: 0 -50%;
+    background-color: black;
+    color: white;
+    border-radius: 8px;
+    padding: 6px;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+.createitem-form > label, .createcategory-form > label {
+    display: grid;
+    gap: 4px;
+    height: fit-content;
+}
+.category-wrapper {
+    display: grid;
+    gap: 2px;
+}
+.category-title {
+    padding-bottom: 4px;
+}
+.category-wrapper > label {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 6px;
+}
+.category-wrapper > label > input {
+    padding: 0;
+    margin: 0;
+}
+.createitem-form button[type="submit"], .createcategory-form button[type="submit"] {
+    border: none;
+    font: inherit;
+    font-size: 1.1rem;
+    padding: 8px;
+    background-color: #eee;
+    border-radius: 4px;
+}
+.createitem-form button[type="submit"]:hover, .createcategory-form button[type="submit"]:hover {
+    background-color: #ddd;
+    cursor: pointer;
+}
+
+/* notfound */
+.notfound-main {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+}
+.notfound-text {
+    color: red;
+    font-size: 1.3rem;
+}
 
 /* footer */
 footer {
@@ -85,4 +353,14 @@ footer {
 }
 .footer-content {
     color: #f8f8f8;
+}
+
+/* errors */
+.errors {
+    width: 100%;
+    background-color: red;
+    color: white;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-radius: 8px;
 }

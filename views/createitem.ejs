@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= locals.title || 'Create Item' %></title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <%- include("partials/header") %>
+
+    <main class="createitem-main">
+        <form class="createitem-form" method="post" action="<%= locals.action || '/items/create' %>">
+            <div class="createitem-form-title"><%= locals.title || 'Create Item' %></div>
+            <label for="input-title">
+                Title
+                <input type="text" name="title" id="input-title" value="<%= (locals.formdata && formdata.title) || '' %>">
+            </label>
+            <label for="input-description">
+                Description
+                <input type="text" name="description" id="input-description" value="<%= (locals.formdata && formdata.description) || '' %>">
+            </label>
+            <label for="input-price">
+                Price
+                <input type="number" name="price" id="input-price" value="<%= (locals.formdata && formdata.price) || '' %>">
+            </label>
+            <label for="input-amount">
+                Amount
+                <input type="number" name="amount" id="input-amount" value="<%= (locals.formdata && formdata.amount) || 1 %>">
+            </label>
+            <div class="category-wrapper">
+                <div class="category-title">
+                    Categories
+                </div>
+                <% for (const c of categories) { %>
+                    <label for="checkbox-<%=c.id%>">
+                        <% if (locals.formdata && formdata.category && formdata.category.some(category_id => Number(category_id) === c.id)) { %>
+                            <input type="checkbox" name="category" id="checkbox-<%=c.id%>" value="<%=c.id%>" checked>
+                        <% } else { %>
+                            <input type="checkbox" name="category" id="checkbox-<%=c.id%>" value="<%=c.id%>">
+                        <% } %>
+                        <%= c.title %>
+                    </label>
+                <% } %>
+            </div>
+            <%- include("partials/errors") %>
+            <button type="submit">Submit</button>
+        </form>
+    </main>
+
+    <%- include("partials/footer") %>
+</body>
+</html>

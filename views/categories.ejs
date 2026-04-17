@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <%- include("partials/header") %>
+
+    <main class="items-main">
+        <div class="items-wrapper">
+            <div class="inventory-title">
+                Categories
+            </div>
+
+            <div class="controls">
+                <div class="control-add">
+                    <a class="control-add-button" href="/categories/create">
+                        New category
+                    </a>
+                </div>
+            </div>
+
+            <ul class="categories">
+                <% for (const c of categories) { %>
+                    <li class="category">
+                        <div class="category-title">
+                            <%= c.title %>
+                        </div>
+                        <a href="/items?category_id=<%=c.id%>" class="category-filter">Filter</a>
+                        <div class="categories-buttons-wrapper">
+                            <a href="/categories/<%=c.id%>/update" class="categoty-update-button">Update</a>
+                            <form class="category-delete-form" action="/categories/<%=c.id%>?_method=DELETE" method="POST">
+                                <button type="submit" class="category-delete-button">Delete</button>
+                            </form>
+                        </div>
+                    </li>
+                <% } %>
+            </ul>
+        </div>
+    </main>
+
+    <%- include("partials/footer") %>
+</body>
+</html>

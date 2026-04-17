@@ -5,13 +5,11 @@ const router = express.Router();
 
 router.get("/", itemsController.getItems);
 
-router.get("/:id", itemsController.getItem);
+router.get("/:id/update", itemsController.updateItemGet);
+router.put("/:id", itemsController.updateItemPut);
 router.delete("/:id", itemsController.deleteItem);
 
-router.get("/:id/update", itemsController.updateItemGet);
-router.put("/:id/update", itemsController.updateItemPut);
-
 router.get("/create", itemsController.createItemGet);
-router.post("/create", items.itemsController.createItemPost);
+router.post("/create", itemsController.createItemPost);
 
 module.exports = router;
