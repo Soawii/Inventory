@@ -3,6 +3,7 @@ const methodOverride = require("method-override");
 const itemsRouter = require("./routes/items");
 const categoriesRouter = require("./routes/categories");
 const app = express();
+const db_setup = require("./db/setup");
 
 app.set("view engine","ejs");
 
@@ -21,6 +22,12 @@ app.use((err, req, res, next) => {
     res.status(500).send("Something went wrong");
 });
 
-app.listen(process.env.PORT || 3000, (err) => {
-    console.log(err ? err : "Server running!");
-});
+db_setup() 
+    .then(() => {
+        app.listen(process.env.PORT || 3000, (err) => {
+            console.log(err ? err : "Server running!");
+        });
+    })
+    .catch(err => {
+        console.log(err);
+    });
