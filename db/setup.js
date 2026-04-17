@@ -25,7 +25,7 @@ const SQL = `
     );
 `;
 
-async function db_setup() {
+module.exports = async function db_setup() {
     console.log("Connecting to  db...");
     await pool.query(SQL);
     console.log("Connection success!");
