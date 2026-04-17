@@ -66,6 +66,7 @@ exports.getItems = [
                 }
             })
             .catch(err => {
+                console.log(err);
                 res.render("notfound", { title: "Database access error" });
             });
     }
@@ -117,6 +118,7 @@ exports.updateItemGet = [
                 });
             })
             .catch(err => {
+                console.log(err);
                 res.render("notfound", { title: "Database access error" });
             });
     }
